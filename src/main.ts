@@ -89,7 +89,7 @@ const issueSection = (post: WeekendPost, headingLevel = 'h2'): string => {
       ${post.note ? `<p class="issue-note">${post.note}</p>` : ''}
     </div>
     <div class="pick-grid">${post.picks.map((item, index) => pickCard(item, post.id, index)).join('')}</div>
-    <p class="score-disclaimer">HAI3 CODE 為設計稿示範分數・正式發文前由 SS 確認</p>
+    <p class="score-disclaimer">HAI3 CODE 為 Claude 依公開資訊給的初稿評分・正式發文前由 SS 確認</p>
   </section>`;
 };
 
@@ -126,7 +126,7 @@ const home = (): string => `
     ${ticker('ticker-divider ticker-reverse')}
     <section class="code-explainer" id="code">
       <div><p class="eyebrow">OUR SYSTEM</p><h2>HAI3<br />CODE</h2></div>
-      <div class="code-copy"><p>五個角度，一眼看懂。不是排名，是我們選它的理由。</p>${codeChart({ wow: 5, vibe: 4, easy: 3, value: 4, pick: 5 })}<small>示範分數・正式發文前由 SS 確認</small></div>
+      <div class="code-copy"><p>五個角度，一眼看懂。不是排名，是我們選它的理由。</p>${codeChart({ wow: 5, vibe: 4, easy: 3, value: 4, pick: 5 })}<small>示範用圖・每則實際分數見各期內文</small></div>
     </section>
   </main>
   ${footer()}`;
