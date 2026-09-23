@@ -8,4 +8,13 @@
 - 品牌定案：`docs/BRAND.md`
 - 雙品牌分工、共同管理、收入：`../SonaSNS-Platform/brands/OKIDAYZ_HAI3.md`
 
-現階段：**先經營 IG／Threads 帳號驗證題目，暫時不做網站。** 等累積 50 個地點、確認哪幾類 3 選最多人收藏，再開始在這個 repo（sssunwl/hai3）做網站 v1。
+現階段：網站 v1 先發布 8 則已查證的「這週末 3 選」，再把網站內容轉成 IG／Threads。4 則常青地點要等 `visited` 有真實日期後才上，不使用佔位店名。
+
+## 本機開發
+
+```sh
+npm install
+npm run dev
+```
+
+網站以 Vite + TypeScript 製作，GitHub Actions 在 `main` 更新後部署到 GitHub Pages。
