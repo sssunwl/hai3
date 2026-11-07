@@ -1,0 +1,56 @@
+{
+  "axes": [
+    {
+      "key": "wow",
+      "zh": "驚",
+      "en": "WOW",
+      "question": "有沒有讓人「哇」的東西",
+      "emoji": "🤯"
+    },
+    {
+      "key": "vibe",
+      "zh": "氛",
+      "en": "VIBE",
+      "question": "氣氛、音樂、人",
+      "emoji": "🪩"
+    },
+    {
+      "key": "easy",
+      "zh": "順",
+      "en": "EASY",
+      "question": "好不好去、停車、排隊",
+      "emoji": "🛼"
+    },
+    {
+      "key": "value",
+      "zh": "值",
+      "en": "VALUE",
+      "question": "花的錢和時間值不值",
+      "emoji": "🪙"
+    },
+    {
+      "key": "pick",
+      "zh": "推",
+      "en": "PICK",
+      "question": "SS 個人推不推",
+      "emoji": "📌"
+    }
+  ],
+  "best": {
+    "WOW": "🤯",
+    "VIBE": "🪩",
+    "EASY": "🛼"
+  },
+  "blocks": "▁▂▃▅▇",
+  "example": {
+    "scores": [
+      4,
+      5,
+      3,
+      4,
+      5
+    ],
+    "text": "▅▇▃▅▇  4·5·3·4·5",
+    "emoji": "🤯4  🪩5  🛼3  🪙4  📌5"
+  }
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HAI3 素材 KIT</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+TC:wght@400;700;900&family=Space+Mono:wght@700&display=swap');
+:root{--bg:#0a0a0a;--fg:#f5f3ee;--accent:#ff4d1f;--muted:#a3a09a;--line:#393837}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Noto Sans TC',sans-serif;padding:32px 16px 60px}
+main{max-width:1040px;margin:0 auto}
+h1{font:400 clamp(40px,10vw,72px)/.95 'Archivo Black',sans-serif;margin:0 0 8px}
+h1 b{color:var(--accent);font-weight:400}
+h2{font:400 26px 'Archivo Black',sans-serif;margin:44px 0 12px}
+h2 small{font:900 15px 'Noto Sans TC';color:var(--muted);margin-left:8px}
+p.note{margin:0;color:var(--muted);font-size:14px}
+.grid{display:flex;flex-wrap:wrap;gap:18px;align-items:end}
+figure{margin:0} figure img{display:block;max-width:100%;width:auto}
+figcaption{font:700 11px 'Space Mono',monospace;color:var(--muted);margin-top:6px;letter-spacing:.08em}
+.big img{height:auto!important;width:100%} .big{flex:1 1 280px;max-width:340px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:middle}
+th{font:700 11px 'Space Mono',monospace;color:var(--muted);letter-spacing:.12em}
+td b{font-size:20px;margin-right:4px} .emo{font-size:26px}
+.gl{height:40px;display:inline-block;margin-right:8px} .lt{background:var(--fg)}
+pre{background:#141414;border:1.5px solid var(--line);padding:16px;font:15px/1.6 'Space Mono',monospace;overflow-x:auto}
+.tape img{width:100%;height:auto}
+</style></head><body><main>
+<h1>HAI3 <b>KIT</b></h1>
+<p class="note">由 tools/brand_assets.py 生成，改生成器再重跑。圖卡、網站用這裡的圖形；emoji 只在貼文文字裡用。</p>
+<h2>HAI3 CODE<small>條碼：5 根粗柱＝驚氛順值推，細柱是滿分刻度，「推」是橘紅</small></h2>
+<div class="grid"><figure class=""><img src="code/sample-45345-light.svg" alt="" style="height:170px"><figcaption>45345 · light</figcaption></figure><figure class=""><img src="code/sample-45345-dark.svg" alt="" style="height:170px"><figcaption>dark</figcaption></figure><figure class=""><img src="code/sample-53254-light.svg" alt="" style="height:170px"><figcaption>53254</figcaption></figure><figure class=""><img src="code/sample-34555-light.svg" alt="" style="height:170px"><figcaption>34555</figcaption></figure></div>
+<div class="grid" style="margin-top:18px"><figure class=""><img src="code/strip-45345.svg" alt="" style="height:72px"><figcaption>strip · 圖卡底部橫幅</figcaption></figure></div>
+<h2>5 AXES<small>簡稱 × emoji × 自家圖形</small></h2>
+<table><tr><th>簡稱</th><th>問的是</th><th>貼文 emoji</th><th>圖形 dark／light</th></tr><tr><td><b>驚</b> WOW</td><td>有沒有讓人「哇」的東西</td><td class="emo">🤯</td><td><img src="glyphs/wow-dark.svg" alt="" class="gl"><img src="glyphs/wow-light.svg" alt="" class="gl lt"></td></tr><tr><td><b>氛</b> VIBE</td><td>氣氛、音樂、人</td><td class="emo">🪩</td><td><img src="glyphs/vibe-dark.svg" alt="" class="gl"><img src="glyphs/vibe-light.svg" alt="" class="gl lt"></td></tr><tr><td><b>順</b> EASY</td><td>好不好去、停車、排隊</td><td class="emo">🛼</td><td><img src="glyphs/easy-dark.svg" alt="" class="gl"><img src="glyphs/easy-light.svg" alt="" class="gl lt"></td></tr><tr><td><b>值</b> VALUE</td><td>花的錢和時間值不值</td><td class="emo">🪙</td><td><img src="glyphs/value-dark.svg" alt="" class="gl"><img src="glyphs/value-light.svg" alt="" class="gl lt"></td></tr><tr><td><b>推</b> PICK</td><td>SS 個人推不推</td><td class="emo">📌</td><td><img src="glyphs/pick-dark.svg" alt="" class="gl"><img src="glyphs/pick-light.svg" alt="" class="gl lt"></td></tr></table>
+<h2>TEXT CODE<small>貼文用的純文字條碼（code.json 有同一份對照）</small></h2>
+<pre>HAI3 CODE  ▅▇▃▅▇  4·5·3·4·5
+🤯4  🪩5  🛼3  🪙4  📌5
+
+HAI3 CODE  ▇▃▂▇▅  5·3·2·5·4
+🤯5  🪩3  🛼2  🪙5  📌4
+
+HAI3 CODE  ▃▅▇▇▇  3·4·5·5·5
+🤯3  🪩4  🛼5  🪙5  📌5
+</pre>
+<h2>SLAPS<small>貼紙</small></h2>
+<div class="grid"><figure class=""><img src="slaps/no-top-10.svg" alt="" style="height:110px"><figcaption>no-top-10</figcaption></figure><figure class=""><img src="slaps/just-3.svg" alt="" style="height:110px"><figcaption>just-3</figcaption></figure><figure class=""><img src="slaps/best-wow.svg" alt="" style="height:110px"><figcaption>best-wow</figcaption></figure><figure class=""><img src="slaps/best-vibe.svg" alt="" style="height:110px"><figcaption>best-vibe</figcaption></figure><figure class=""><img src="slaps/best-easy.svg" alt="" style="height:110px"><figcaption>best-easy</figcaption></figure><figure class=""><img src="slaps/partner.svg" alt="" style="height:110px"><figcaption>partner</figcaption></figure><figure class=""><img src="slaps/visited.svg" alt="" style="height:110px"><figcaption>visited</figcaption></figure><figure class=""><img src="slaps/sold-out.svg" alt="" style="height:110px"><figcaption>sold-out</figcaption></figure></div>
+<h2>TAPE<small>警示膠帶</small></h2>
+<div class="tape"><img src="tape/not-for-sale.svg" alt=""></div>
+<h2>BOX<small>盲盒輪播框：封面／公仔卡 1–3／尾頁（虛線區由工作室疊字和照片）</small></h2>
+<div class="grid"><figure class="big"><img src="box/cover.svg" alt="" style="height:96px"><figcaption>cover</figcaption></figure><figure class="big"><img src="box/card-1.svg" alt="" style="height:96px"><figcaption>card 1/3</figcaption></figure><figure class="big"><img src="box/end.svg" alt="" style="height:96px"><figcaption>end</figcaption></figure></div>
+<h2>TICKET<small>3 DROPS 票根</small></h2>
+<div class="grid"><figure class=""><img src="ticket/drop.svg" alt="" style="height:160px"><figcaption>drop</figcaption></figure></div>
+</main></body></html>
