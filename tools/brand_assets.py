@@ -35,7 +35,9 @@ AXES = [
     ("value", "值", "VALUE", "花的錢和時間值不值", "🪙"),
     ("pick", "推", "PICK", "SS 個人推不推", "📌"),
 ]
-BLOCKS = "▁▂▃▅▇"  # 文字版條碼：分數 1–5
+BLOCKS = "▏▎▌▊█"  # 文字版條碼：分數 1–5，越粗越強
+WIDTH = (0.06, 0.14, 0.26, 0.46, 0.82)  # 條碼線寬＝欄寬 × 這個比例（1–5 分）
+LABEL_FONT = "PingFang TC, Noto Sans TC, sans-serif"  # SVG 不嵌中文字型，用系統字
 
 
 # ── 共用 ────────────────────────────────────────────────
@@ -69,8 +71,8 @@ def rect(x, y, w, h, fill, extra=""):
 
 
 def text_code(scores):
-    """貼文用的純文字條碼，例：▅▇▃▅▇  4·5·3·4·5"""
-    return "".join(BLOCKS[s - 1] for s in scores) + "  " + "·".join(map(str, scores))
+    """貼文用的純文字條碼，例：▊█▌▊█  驚4 氛5 順3 值4 推5"""
+    return "".join(BLOCKS[s - 1] for s in scores) + "  " + " ".join(f"{a[1]}{s}" for a, s in zip(AXES, scores))
 
 
 def emoji_line(scores):
@@ -78,52 +80,41 @@ def emoji_line(scores):
 
 
 # ── HAI3 CODE 條碼 ──────────────────────────────────────
-# 5 根粗柱＝驚氛順值推的分數（底部對齊，5 分＝滿高）。細柱永遠滿高，當作刻度，
-# 也讓整條看起來像真的條碼。第 5 根「推」用橘紅，是整條唯一的顏色。
+# 一個簡稱＝一條直線，全部一樣高，越粗越強（1 分像髮絲，5 分像磚）。5 條排起來就是條碼。
+# 每條線下面寫簡稱＋分數，像真條碼底下的數字，不用猜。「推」是橘紅，整條唯一的顏色。
+
+def code_bars(x, y, scores, fg, slot=44, h=120, label=True, label_size=17, label_fg=None):
+    out = ""
+    for i, s in enumerate(scores):
+        w = slot * WIDTH[s - 1]
+        out += rect(x + i * slot + (slot - w) / 2, y, w, h, SIGNAL if i == 4 else fg)
+        if label:
+            out += text(x + i * slot + slot / 2, y + h + label_size * 1.45, f"{AXES[i][1]}{s}",
+                        label_size, LABEL_FONT, label_fg or fg, "middle", extra=' font-weight="700"')
+    return out
+
 
 def barcode(scores, theme="light", label=True):
     fg, bg = (BLACK, PAPER) if theme == "light" else (PAPER, BLACK)
-    thick, thin, gap = 22, 5, 7
-    bar_h, pad = 120, 18
-    pattern = ["t", "t"]
-    for i in range(5):
-        pattern += [i, "t"]
-    pattern += ["t"]
-    w_bars = sum(thick if p != "t" else thin for p in pattern) + gap * (len(pattern) - 1)
-    w = w_bars + pad * 2
-    h = pad + bar_h + (58 if label else pad)
+    slot, bar_h, pad = 48, 120, 20
+    w = slot * 5 + pad * 2
+    h = pad + (30 if label else 0) + bar_h + (44 if label else pad)
     body = rect(0, 0, w, h, bg)
-    x = pad
-    for p in pattern:
-        if p == "t":
-            body += rect(x, pad, thin, bar_h, fg)
-            x += thin + gap
-            continue
-        bh = bar_h * scores[p] / 5
-        body += rect(x, pad + bar_h - bh, thick, bh, SIGNAL if p == 4 else fg)
-        if label:
-            body += text(x + thick / 2, pad + bar_h + 22, str(scores[p]), 17, MONO, fg, "middle")
-        x += thick + gap
+    top = pad + (30 if label else 0)
     if label:
-        body += text(pad, h - 10, "HAI3 CODE", 12, MONO, fg, spacing=2.4)
-        body += text(w - pad, h - 10, "".join(map(str, scores)), 12, MONO, MUTED, "end", 2.4)
+        body += text(pad, pad + 14, "HAI3 CODE", 13, MONO, fg, spacing=2.4)
+        body += text(w - pad, pad + 14, "越粗越強", 13, LABEL_FONT, MUTED, "end", extra=' font-weight="700"')
+    body += code_bars(pad, top, scores, fg, slot, bar_h, label, 18)
     return svg(w, h, body, (MONO,) if label else ())
 
 
 def barcode_strip(scores):
     """橫幅：條碼＋HAI3 CODE 大字，放圖卡底部。"""
-    h, w = 96, 640
+    h, w = 120, 640
     body = rect(0, 0, w, h, BLACK)
-    x = 24
-    for i, s in enumerate(scores):
-        body += rect(x, 18, 4, 60, PAPER)
-        x += 10
-        bh = 60 * s / 5
-        body += rect(x, 78 - bh, 16, bh, SIGNAL if i == 4 else PAPER)
-        x += 24
-    body += rect(x, 18, 4, 60, PAPER)
-    body += text(x + 28, 58, "HAI3 CODE", 34, DISPLAY, PAPER)
-    body += text(w - 24, 80, "·".join(map(str, scores)), 14, MONO, MUTED, "end", 3)
+    body += code_bars(24, 16, scores, PAPER, 38, 64, True, 16)
+    body += text(24 + 38 * 5 + 30, 62, "HAI3 CODE", 34, DISPLAY, PAPER)
+    body += text(24 + 38 * 5 + 30, 92, "越粗越強 · 驚氛順值推", 15, LABEL_FONT, MUTED, extra=' font-weight="700"')
     return svg(w, h, body, (DISPLAY, MONO))
 
 
@@ -219,14 +210,7 @@ W, H = 1080, 1350
 
 
 def mini_code(x, y, scores, fg, scale=1.0):
-    out, cx = "", x
-    for i, s in enumerate(scores):
-        out += rect(cx, y, 4 * scale, 60 * scale, fg)
-        cx += 10 * scale
-        bh = 60 * scale * s / 5
-        out += rect(cx, y + 60 * scale - bh, 14 * scale, bh, SIGNAL if i == 4 else fg)
-        cx += 22 * scale
-    return out + rect(cx, y, 4 * scale, 60 * scale, fg)
+    return code_bars(x, y, scores, fg, 40 * scale, 56 * scale, True, 18 * scale)
 
 
 def box_cover(series="SERIES 01", box="WEEKEND BOX"):
@@ -270,8 +254,9 @@ def figure_card(n):
     body += rect(84, 920, W - 168, 4, BLACK)
     body += text(84, 970, "NAME · AREA · DATE", 22, MONO, MUTED, spacing=3)
     body += rect(84, 1180, W - 168, 4, BLACK)
-    body += text(84, 1240, "HAI3 CODE", 24, MONO, BLACK, spacing=4)
-    body += mini_code(W - 84 - 170, 1196, [4, 5, 3, 4, 5], BLACK)
+    body += text(84, 1236, "HAI3 CODE", 24, MONO, BLACK, spacing=4)
+    body += text(84, 1272, "越粗越強", 20, LABEL_FONT, MUTED, extra=' font-weight="700"')
+    body += mini_code(W - 84 - 240, 1192, [4, 5, 3, 4, 5], BLACK, 1.2)
     return svg(W, H, body, (DISPLAY, MONO))
 
 
@@ -359,7 +344,7 @@ pre{{background:#141414;border:1.5px solid var(--line);padding:16px;font:15px/1.
 </style></head><body><main>
 <h1>HAI3 <b>KIT</b></h1>
 <p class="note">由 tools/brand_assets.py 生成，改生成器再重跑。圖卡、網站用這裡的圖形；emoji 只在貼文文字裡用。</p>
-<h2>HAI3 CODE<small>條碼：5 根粗柱＝驚氛順值推，細柱是滿分刻度，「推」是橘紅</small></h2>
+<h2>HAI3 CODE<small>條碼：一個簡稱一條線，一樣高，越粗越強；線下寫簡稱＋分數，「推」是橘紅</small></h2>
 <div class="grid">{codes}</div>
 <div class="grid" style="margin-top:18px">{fig("code/strip-45345.svg", "strip · 圖卡底部橫幅", 72)}</div>
 <h2>5 AXES<small>簡稱 × emoji × 自家圖形</small></h2>
